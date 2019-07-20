@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const passport = require("passport");
 
 //model import
 const User = require("../models/User");
@@ -68,7 +69,7 @@ router.post("/login", (req, res) => {
             };
 
             jwt.sign(payload, key, { expiresIn: 3600 }, (err, token) => {
-              res.json({ success: true, token: token });
+              res.json({ success: true, token: "Bearer " + token });
             });
           } else {
             errors.password = "Incorrect password";
@@ -85,5 +86,46 @@ router.post("/login", (req, res) => {
       return res.status(400).json(errors);
     });
 });
+
+//@route POST /api/users/books/new
+//@desc add new book
+//@access private
+router.post(
+  "/books/new",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findById(req.user.id)
+      .then(user => {
+        const newBook = {
+          title: req.body.title,
+          author: req.body.author,
+          status: "future",
+          rating: 0
+        };
+        user.books.push(newBook);
+        user
+          .save()
+          .then(user => res.json(user))
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+  }
+);
+
+//@route GET /api/users/books
+//@desc get books
+//@access private
+router.get(
+  "/books",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findById(req.user.id)
+      .then(user => {
+        const payload = user.books;
+        return res.json(payload);
+      })
+      .catch(err => console.log(err));
+  }
+);
 
 module.exports = router;
