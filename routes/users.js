@@ -128,4 +128,26 @@ router.get(
   }
 );
 
+//@route DELETE /api/users/books/:id
+//@desc delete a book
+//@access private
+router.delete(
+  "/books/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findById(req.user.id)
+      .then(user => {
+        const newBooks = user.books.filter(
+          book => book._id.toString() !== req.params.id
+        );
+        user.books = newBooks;
+        user
+          .save()
+          .then(user => res.json(user))
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+  }
+);
+
 module.exports = router;
