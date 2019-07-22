@@ -3,10 +3,14 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
+import jwt_decode from "jwt-decode";
 
 import reducers from "./reducers";
 import MainWrapper from "./components/common/MainWrapper";
 import Login from "./components/auth/Login";
+import ProtectedRoute from "./components/common/ProtectedRoute";
+import setAuthToken from "./utils/setAuthToken";
+import { SET_CURRENT_USER, LOGOUT_USER } from "./actions/types";
 
 const initialState = {};
 const middleware = [thunk];
@@ -19,12 +23,44 @@ const store = createStore(
   )
 );
 
+if (localStorage.getItem("token")) {
+  const token = localStorage.getItem("token");
+
+  //Set axios default
+  setAuthToken(token);
+
+  //Set auth state
+  const decoded = jwt_decode(token);
+  store.dispatch({ type: SET_CURRENT_USER, payload: decoded });
+
+  //Check if expired
+  const currentTime = Date.now / 1000;
+  if (currentTime > decoded.exp) {
+    //Remove axios default
+    setAuthToken(false);
+
+    //Clear auth state
+    store.dispatch({ type: LOGOUT_USER });
+
+    //Remove from local storage
+    localStorage.removeItem("token");
+
+    //Redirect
+    window.location.href = "/login";
+  }
+}
+
 const App = () => {
   return (
     <Provider store={store}>
       <MainWrapper>
         <Router>
-          <Route exact path="/login" component={Login} />
+          <Switch>
+            <Route exact path="/login" component={Login} />
+          </Switch>
+          <Switch>
+            <ProtectedRoute exact path="/books" component={null} />
+          </Switch>
         </Router>
       </MainWrapper>
     </Provider>

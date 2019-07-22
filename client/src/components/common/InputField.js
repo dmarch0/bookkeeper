@@ -13,7 +13,7 @@ const InputField = ({
 }) => {
   return (
     <div className={className}>
-      <label htlmFor={name}>{label}</label>
+      <label htmlFor={name}>{label}</label>
       <Field
         component="input"
         type={type ? type : "text"}
@@ -38,6 +38,8 @@ const StyledInputField = styled(InputField)`
     font-size: 2rem;
     display: block;
     padding-bottom: 0.3rem;
+    width: 100%;
+    text-align: ${props => (props.centered ? "center" : "left")};
   }
 
   input {
@@ -45,7 +47,7 @@ const StyledInputField = styled(InputField)`
     height: 2rem;
     padding: 0.5rem;
     font-size: 2rem;
-    width: 100%;
+    width: ${props => (props.small ? "40%" : "100%")};
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -56,12 +58,17 @@ const StyledInputField = styled(InputField)`
     ::placeholder {
       color: grey;
     }
+
+    :focus {
+      outline: none;
+    }
   }
 
   .error {
     font-size: 1rem;
     color: red;
     font-weight: 300;
+    text-align: ${props => (props.centered ? "center" : "left")};
   }
   .info {
     font-size: 1rem;
