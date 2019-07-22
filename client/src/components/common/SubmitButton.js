@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
+import styledConfig from "../../utils/styledConfing";
+
 const StyledButton = styled.button`
-  color: rgb(77, 77, 77);
+  color: ${styledConfig.mainColor};
   background-color: white;
-  border: 1px solid rgb(77, 77, 77);
+  border: 1px solid ${styledConfig.mainColor};
   border-radius: 5px;
   font-size: 2rem;
   padding: 0.5rem;

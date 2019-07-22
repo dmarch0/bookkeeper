@@ -9,6 +9,7 @@ import reducers from "./reducers";
 import MainWrapper from "./components/common/MainWrapper";
 import Login from "./components/auth/Login";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import Dashboard from "./components/books/Dashboard";
 import setAuthToken from "./utils/setAuthToken";
 import { SET_CURRENT_USER, LOGOUT_USER } from "./actions/types";
 
@@ -59,7 +60,7 @@ const App = () => {
             <Route exact path="/login" component={Login} />
           </Switch>
           <Switch>
-            <ProtectedRoute exact path="/books" component={null} />
+            <ProtectedRoute exact path="/books" component={Dashboard} />
           </Switch>
         </Router>
       </MainWrapper>

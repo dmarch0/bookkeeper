@@ -1,7 +1,7 @@
 import jwt_decode from "jwt-decode";
 
 import axios from "../utils/axiosConfig";
-import { SET_CURRENT_USER, GET_ERRORS, LOGOUT_USER } from "./types";
+import { SET_CURRENT_USER, FORM_ERROR, LOGOUT_USER } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
 export const loginUser = (formValues, history) => dispatch => {
@@ -28,7 +28,7 @@ export const loginUser = (formValues, history) => dispatch => {
       history.push("/books");
     })
     .catch(err => {
-      dispatch({ type: GET_ERRORS, payload: err.response.data });
+      dispatch({ type: FORM_ERROR, payload: err.response.data });
     });
 };
 

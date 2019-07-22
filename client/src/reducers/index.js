@@ -2,11 +2,13 @@ import { combineReducers } from "redux";
 import { reducer } from "redux-form";
 
 import authReducer from "./authReducer";
-import errorReducer from "./errorReducer";
+import formErrorReducer from "./formErrorReducer";
+import booksReducer from "./booksReducer";
 
 export default combineReducers({
   test: () => 5,
   form: reducer,
   auth: authReducer,
-  error: errorReducer
+  formError: formErrorReducer,
+  books: booksReducer
 });

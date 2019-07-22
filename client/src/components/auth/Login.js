@@ -23,7 +23,7 @@ const Login = ({ formError, history, handleSubmit, loginUser }) => {
         centered
         error={formError.password}
       />
-      <SubmitButton centered>Submit</SubmitButton>
+      <SubmitButton centered>Login</SubmitButton>
     </form>
   );
 };
@@ -32,7 +32,7 @@ const formWrapped = reduxForm({ form: "login" })(Login);
 
 const mapStateToProps = state => {
   return {
-    formError: state.error
+    formError: state.formError
   };
 };
 

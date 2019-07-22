@@ -2,6 +2,8 @@ import React from "react";
 import { Field } from "redux-form";
 import styled from "styled-components";
 
+import styledConfig from "../../utils/styledConfing";
+
 const InputField = ({
   name,
   label,
@@ -32,7 +34,7 @@ const InputField = ({
 
 const StyledInputField = styled(InputField)`
   width: 100%;
-  color: rgb(77, 77, 77);
+  color: ${styledConfig.mainColor};
 
   label {
     font-size: 2rem;
@@ -43,7 +45,7 @@ const StyledInputField = styled(InputField)`
   }
 
   input {
-    color: rgb(77, 77, 77);
+    color: ${styledConfig.mainColor};
     height: 2rem;
     padding: 0.5rem;
     font-size: 2rem;
@@ -51,12 +53,12 @@ const StyledInputField = styled(InputField)`
     display: block;
     margin-left: auto;
     margin-right: auto;
-    border: 1px solid grey;
+    border: 1px solid ${styledConfig.mainColor};
     border-radius: 5px;
     margin-bottom: 0.3rem;
 
     ::placeholder {
-      color: grey;
+      color: ${styledConfig.mainColor};
     }
 
     :focus {
@@ -72,7 +74,7 @@ const StyledInputField = styled(InputField)`
   }
   .info {
     font-size: 1rem;
-    color: rgb(77, 77, 77);
+    color: ${styledConfig.mainColor};
     font-weight: 300;
   }
   .bottom {

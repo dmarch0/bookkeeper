@@ -2,5 +2,13 @@
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
 
+//Books types
+export const GET_BOOKS = "GET_BOOKS";
+export const BOOKS_LOADING = "BOOKS_LOADING";
+export const BOOKS_ERROR = "BOOKS_ERROR";
+
+//Form error types
+export const FORM_ERROR = "FORM_ERROR";
+
 //Error types
 export const GET_ERRORS = "GET_ERRORS";
