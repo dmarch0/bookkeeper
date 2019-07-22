@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import HTML5Backend from "react-dnd-html5-backend";
+import { DndProvider } from "react-dnd";
 
 import { getBooks } from "../../actions/booksActions";
 import Column from "./Column";
@@ -13,25 +15,31 @@ const Dashboard = ({ getBooks, className, books }) => {
     return () => {};
   }, []);
 
-  const futureRenderContent = [<ColumnHeader children="Future: " />];
-  const currentRenderContent = [<ColumnHeader children="Current: " />];
-  const pastRenderContent = [<ColumnHeader children="Past: " />];
+  const futureRenderContent = [
+    <ColumnHeader children="Future: " key="header" />
+  ];
+  const currentRenderContent = [
+    <ColumnHeader children="Current: " key="header" />
+  ];
+  const pastRenderContent = [<ColumnHeader children="Past: " key="header" />];
 
-  books.map(book => {
+  books.map((book, index) => {
     if (book.status === "future") {
-      futureRenderContent.push(<BookItem book={book} />);
-    } else if (book.staus === "current") {
-      currentRenderContent.push(<BookItem book={book} />);
-    } else if (book.status === "past") {
-      pastRenderContent.push(<BookItem book={book} />);
+      futureRenderContent.push(<BookItem book={book} key={index} />);
+    } else if (book.status === "current") {
+      currentRenderContent.push(<BookItem book={book} key={index} />);
+    } else {
+      pastRenderContent.push(<BookItem book={book} key={index} />);
     }
   });
 
   return (
     <div className={className}>
-      <Column children={futureRenderContent} id="future" />
-      <Column children={currentRenderContent} id="current" />
-      <Column children={pastRenderContent} id="past" />
+      <DndProvider backend={HTML5Backend}>
+        <Column children={futureRenderContent} id="future" />
+        <Column children={currentRenderContent} id="current" />
+        <Column children={pastRenderContent} id="past" />
+      </DndProvider>
     </div>
   );
 };

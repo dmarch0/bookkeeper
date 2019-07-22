@@ -150,4 +150,39 @@ router.delete(
   }
 );
 
+//@route POST /api/users/books/:id
+//@desc change book status
+//@access private
+router.post(
+  "/books/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findById(req.user.id)
+      .then(user => {
+        const book = user.books.filter(
+          book => book._id.toString() === req.params.id
+        )[0];
+
+        user.books = user.books.filter(
+          book => book._id.toString() !== req.params.id
+        );
+
+        const newBook = {
+          title: book.title,
+          author: book.author,
+          status: req.body.status,
+          rating: 0
+        };
+
+        user.books.push(newBook);
+
+        user
+          .save()
+          .then(user => res.json(user.books))
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+  }
+);
+
 module.exports = router;
