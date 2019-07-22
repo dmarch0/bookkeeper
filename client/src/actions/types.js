@@ -9,8 +9,3 @@ export const BOOKS_ERROR = "BOOKS_ERROR";
 
 //Form error types
 export const FORM_ERROR = "FORM_ERROR";
-
-//Drag types
-export const DRAG_START = "DRAG_START";
-export const DRAG_ENTER = "DRAG_ENTER";
-export const DRAG_END = "DRAG_END";
