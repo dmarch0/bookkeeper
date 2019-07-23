@@ -4,11 +4,13 @@ import { reducer } from "redux-form";
 import authReducer from "./authReducer";
 import formErrorReducer from "./formErrorReducer";
 import booksReducer from "./booksReducer";
+import languageReducer from "./languageReducer";
 
 export default combineReducers({
   test: () => 5,
   form: reducer,
   auth: authReducer,
   formError: formErrorReducer,
-  books: booksReducer
+  books: booksReducer,
+  language: languageReducer
 });

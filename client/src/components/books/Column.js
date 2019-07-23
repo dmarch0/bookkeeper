@@ -4,16 +4,18 @@ import { useDrop } from "react-dnd";
 import { connect } from "react-redux";
 
 import styledConfig from "../../utils/styledConfing";
-import { setBookStatus } from "../../actions/booksActions";
+import { setBookStatus, addGhost } from "../../actions/booksActions";
 
-const Column = ({ className, children, id, setBookStatus }) => {
+const Column = ({ className, children, id, setBookStatus, addGhost }) => {
   const [{ isOver, item }, drop] = useDrop({
     accept: "book",
     drop: () => {
       setBookStatus(item.data._id, id);
     },
+    hover: (item, monitor) => {
+      addGhost(id, item.data);
+    },
     collect: monitor => ({
-      isOver: monitor.isOver(),
       item: monitor.getItem()
     })
   });
@@ -30,6 +32,7 @@ const StyledColumn = styled(Column)`
   border: 1px solid ${styledConfig.mainColor};
   border-radius: 10px;
   margin: 0 4px;
+  min-height: 500px;
 `;
 
 const mapStateToProps = state => {
@@ -38,5 +41,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { setBookStatus }
+  { setBookStatus, addGhost }
 )(StyledColumn);

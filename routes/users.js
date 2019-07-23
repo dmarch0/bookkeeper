@@ -105,7 +105,7 @@ router.post(
         user.books.push(newBook);
         user
           .save()
-          .then(user => res.json(user))
+          .then(user => res.json(user.books))
           .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
@@ -143,7 +143,7 @@ router.delete(
         user.books = newBooks;
         user
           .save()
-          .then(user => res.json(user))
+          .then(user => res.json(user.books))
           .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
@@ -172,6 +172,41 @@ router.post(
           author: book.author,
           status: req.body.status,
           rating: 0
+        };
+
+        user.books.push(newBook);
+
+        user
+          .save()
+          .then(user => res.json(user.books))
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+  }
+);
+
+//@route POST /api/users/books/rating/:id
+//@desc change book rating
+//@access private
+router.post(
+  "/books/rating/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findById(req.user.id)
+      .then(user => {
+        const book = user.books.filter(
+          book => book._id.toString() === req.params.id
+        )[0];
+
+        user.books = user.books.filter(
+          book => book._id.toString() !== req.params.id
+        );
+
+        const newBook = {
+          title: book.title,
+          author: book.author,
+          status: book.status,
+          rating: req.body.rating
         };
 
         user.books.push(newBook);

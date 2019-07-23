@@ -37,6 +37,7 @@ const StyledInputField = styled(InputField)`
   color: ${styledConfig.mainColor};
 
   label {
+    font-family: sans-serif;
     font-size: 2rem;
     display: block;
     padding-bottom: 0.3rem;
@@ -49,7 +50,7 @@ const StyledInputField = styled(InputField)`
     height: 2rem;
     padding: 0.5rem;
     font-size: 2rem;
-    width: ${props => (props.small ? "40%" : "100%")};
+    width: ${props => (props.small ? "40%" : props.medium ? "60%" : "100%")};
     display: block;
     margin-left: auto;
     margin-right: auto;
