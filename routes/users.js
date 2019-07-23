@@ -171,7 +171,7 @@ router.post(
           title: book.title,
           author: book.author,
           status: req.body.status,
-          rating: 0
+          rating: book.rating
         };
 
         user.books.push(newBook);

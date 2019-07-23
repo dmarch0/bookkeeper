@@ -38,17 +38,27 @@ const BookItem = ({ className, book, setRating, deleteBook }) => {
       >
         {[1, 2, 3, 4, 5].map((item, index) =>
           item <= rating ? (
-            <FaStar
-              onMouseOver={() => setStateRating(item)}
-              onClick={() => setRating(book._id, item)}
-              key={index}
-            />
+            <div className="star-container">
+              <FaStar
+                onMouseOver={() => setStateRating(item)}
+                onClick={() => {
+                  setRating(book._id, item);
+                  setStateRating(item);
+                }}
+                key={index}
+              />
+            </div>
           ) : (
-            <FaRegStar
-              onMouseOver={() => setStateRating(item)}
-              onClick={() => setRating(book._id, item)}
-              key={index}
-            />
+            <div className="star-container">
+              <FaRegStar
+                onMouseOver={() => setStateRating(item)}
+                onClick={() => {
+                  setRating(book._id, item);
+                  setStateRating(item);
+                }}
+                key={index}
+              />
+            </div>
           )
         )}
         {" " + rating + "/5"}
@@ -75,6 +85,10 @@ const StyledBookItem = styled(BookItem)`
   .rating-container {
     display: ${props => (props.book.status === "past" ? "block" : "none")};
     margin: 4px 4px;
+  }
+  .star-container {
+    display: inline;
+    margin: 2px 2px;
   }
 `;
 
