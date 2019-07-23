@@ -198,6 +198,8 @@ router.post(
           book => book._id.toString() === req.params.id
         )[0];
 
+        const insertionIndex = user.books.indexOf(book);
+
         user.books = user.books.filter(
           book => book._id.toString() !== req.params.id
         );
@@ -209,7 +211,8 @@ router.post(
           rating: req.body.rating
         };
 
-        user.books.push(newBook);
+        //user.books.push(newBook);
+        user.books.splice(insertionIndex, 0, newBook);
 
         user
           .save()
