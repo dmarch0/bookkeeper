@@ -13,7 +13,6 @@ import SquareButton from "../common/SquareButton";
 import AddBookForm from "./AddBookForm";
 import StyledModal from "./AddBookModal";
 import { setLanguage } from "../../actions/languageActions";
-import LoadingSpinner from "../common/LoadingSpinner";
 
 const Dashboard = ({
   getBooks,
@@ -29,42 +28,28 @@ const Dashboard = ({
     return () => {};
   }, []);
 
-  let futureRenderContent, currentRenderContent, pastRenderContent;
+  const futureRenderContent = [
+    <ColumnHeader
+      children={language ? "Буду читать: " : "Future: "}
+      key="header"
+    />
+  ];
+  const currentRenderContent = [
+    <ColumnHeader children={language ? "Читаю: " : "Current: "} key="header" />
+  ];
+  const pastRenderContent = [
+    <ColumnHeader children={language ? "Прочитал: " : "Past: "} key="header" />
+  ];
 
-  if (loading) {
-    futureRenderContent = <LoadingSpinner />;
-    currentRenderContent = <LoadingSpinner />;
-    pastRenderContent = <LoadingSpinner />;
-  } else {
-    futureRenderContent = [
-      <ColumnHeader
-        children={language ? "Буду читать: " : "Future: "}
-        key="header"
-      />
-    ];
-    currentRenderContent = [
-      <ColumnHeader
-        children={language ? "Читаю: " : "Current: "}
-        key="header"
-      />
-    ];
-    pastRenderContent = [
-      <ColumnHeader
-        children={language ? "Прочитал: " : "Past: "}
-        key="header"
-      />
-    ];
-
-    books.map((book, index) => {
-      if (book.status === "future") {
-        futureRenderContent.push(<BookItem book={book} key={index} />);
-      } else if (book.status === "current") {
-        currentRenderContent.push(<BookItem book={book} key={index} />);
-      } else {
-        pastRenderContent.push(<BookItem book={book} key={index} />);
-      }
-    });
-  }
+  books.map((book, index) => {
+    if (book.status === "future") {
+      futureRenderContent.push(<BookItem book={book} key={index} />);
+    } else if (book.status === "current") {
+      currentRenderContent.push(<BookItem book={book} key={index} />);
+    } else {
+      pastRenderContent.push(<BookItem book={book} key={index} />);
+    }
+  });
 
   return (
     <div className={className}>

@@ -7,7 +7,7 @@ import styledConfig from "../../utils/styledConfing";
 import { setBookStatus, addGhost } from "../../actions/booksActions";
 
 const Column = ({ className, children, id, setBookStatus, addGhost }) => {
-  const [{ isOver, item }, drop] = useDrop({
+  const [{ item }, drop] = useDrop({
     accept: "book",
     drop: () => {
       setBookStatus(item.data._id, id);
