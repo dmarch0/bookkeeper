@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { useDrag } from "react-dnd";
-import { FaRegStar, FaStar, FaMinus, FaPlus } from "react-icons/fa";
+import { FaRegStar, FaStar, FaMinus, FaAngleDown } from "react-icons/fa";
 import cn from "classnames";
 
 import styledConfig from "../../utils/styledConfing";
@@ -41,10 +41,12 @@ const BookItem = ({ className, book, setRating, deleteBook, loading }) => {
             setTimeout(() => setDisplayTagForm(!displayTagForm), 4);
           }}
           color="lightgreen"
-          width="fit-content"
-          className="btn-addtag"
+          className={cn("btn-addtag", { open: displayTagForm })}
         >
-          add tag
+          <FaAngleDown
+            className={cn("pointer", { rotated: !displayTagForm })}
+            style={{}}
+          />
         </SquareButton>
         <div className={cn("tag-form-container", { open: displayTagForm })}>
           <AddTagForm
@@ -93,7 +95,6 @@ const BookItem = ({ className, book, setRating, deleteBook, loading }) => {
 };
 
 const StyledBookItem = styled(BookItem)`
-  height: auto;
   border: 1px solid ${styledConfig.mainColor};
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -105,10 +106,21 @@ const StyledBookItem = styled(BookItem)`
   .btn-addtag {
     transition: opacity 0.2s ease-in;
     opacity: 0;
+    &.open {
+      opacity: 1;
+    }
+
+    .pointer {
+      transition: all 0.2s ease-in;
+      transform: rotate(0deg);
+
+      &.rotated {
+        transform: rotate(180deg);
+      }
+    }
   }
   :hover {
     .btn-addtag {
-      transition: opacity 0.2s ease-in;
       opacity: 1;
     }
   }
