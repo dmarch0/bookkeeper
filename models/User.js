@@ -29,6 +29,58 @@ const UserSchema = new mongoose.Schema({
       },
       rating: {
         type: Number
+      },
+      tags: [
+        {
+          text: {
+            type: String,
+            required: true
+          },
+          color: {
+            r: {
+              type: Number,
+              required: true
+            },
+            g: {
+              type: Number,
+              required: true
+            },
+            b: {
+              type: Number,
+              required: true
+            }
+          },
+          isBright: {
+            type: Boolean,
+            required: true
+          }
+        }
+      ]
+    }
+  ],
+  tags: [
+    {
+      text: {
+        type: String,
+        required: true
+      },
+      color: {
+        r: {
+          type: Number,
+          required: true
+        },
+        g: {
+          type: Number,
+          required: true
+        },
+        b: {
+          type: Number,
+          required: true
+        }
+      },
+      isBright: {
+        type: Boolean,
+        required: true
       }
     }
   ]

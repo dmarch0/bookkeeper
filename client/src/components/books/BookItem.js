@@ -23,9 +23,10 @@ const BookItem = ({ className, book, setRating, deleteBook, loading }) => {
   return (
     <div className={className} ref={drag}>
       <SquareButton
-        color="salmon"
+        className="btn-delete"
         float="right"
         onClick={() => deleteBook(book._id)}
+        color="salmon"
       >
         <FaMinus />
       </SquareButton>
@@ -103,6 +104,11 @@ const StyledBookItem = styled(BookItem)`
   opacity: ${props => (props.book.ghosted ? "0.5" : "1")};
   transition: height 0.2s ease-in;
 
+  .btn-delete {
+    transition: opacity 0.2s ease-in;
+    opacity: 0;
+  }
+
   .btn-addtag {
     transition: opacity 0.2s ease-in;
     opacity: 0;
@@ -112,15 +118,18 @@ const StyledBookItem = styled(BookItem)`
 
     .pointer {
       transition: all 0.2s ease-in;
-      transform: rotate(0deg);
+      transform: rotate(180deg);
 
       &.rotated {
-        transform: rotate(180deg);
+        transform: rotate(0deg);
       }
     }
   }
   :hover {
     .btn-addtag {
+      opacity: 1;
+    }
+    .btn-delete {
       opacity: 1;
     }
   }
