@@ -8,11 +8,8 @@ const TagFilterContainer = styled.div`
   margin-bottom: 5px;
   display: flex;
   flex-direction: row;
-  vertical-align: center;
-  align-content: center;
-  span {
-    margin-right: 10px;
-  }
+  align-items: center;
+
   .btn-clear {
     border: 1px solid ${styledConfig.mainColor};
     background-color: white;
@@ -20,6 +17,7 @@ const TagFilterContainer = styled.div`
     border-radius: 5px;
     font-size: 1rem;
     margin-left: 10px;
+    display: ${props => (props.length > 0 ? "inline" : "none")};
 
     :focus {
       outline: none;

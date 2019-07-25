@@ -70,8 +70,8 @@ const Dashboard = ({
 
   return (
     <div>
-      <TagFilterContainer>
-        <span>Tag filter: </span>
+      <TagFilterContainer length={filter.length}>
+        <p>Tag filter: </p>
         {filter.map((item, index) => (
           <TagItem tag={item} inFilter key={index} />
         ))}{" "}
