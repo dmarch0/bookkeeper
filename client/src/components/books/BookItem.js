@@ -56,6 +56,7 @@ const BookItem = ({ className, book, setRating, deleteBook, loading }) => {
         </SquareButton>
         <div className={cn("tag-form-container", { open: displayTagForm })}>
           <AddTagForm
+            form={"tag" + book._id}
             closeForm={setDisplayTagForm}
             isOpen={displayTagForm}
             isBlock={blockTagForm}

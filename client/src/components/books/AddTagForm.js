@@ -8,13 +8,21 @@ import styledConfig from "../../utils/styledConfing";
 import SquareButton from "../common/SquareButton";
 import { addTag } from "../../actions/booksActions";
 
-const AddTagForm = ({ className, isOpen, handleSubmit, book_id, addTag }) => {
+const AddTagForm = ({
+  className,
+  isOpen,
+  handleSubmit,
+  book_id,
+  addTag,
+  reset
+}) => {
   return (
     <form
       className={className}
       onSubmit={handleSubmit(formValues => {
         console.log("submit");
         addTag(formValues, book_id);
+        reset();
       })}
     >
       <Field component="input" name="text" type="text" />
@@ -48,7 +56,7 @@ const StyledTagForm = styled(AddTagForm)`
   }
 `;
 
-const formConnected = reduxForm({ form: "tag" })(StyledTagForm);
+const formConnected = reduxForm({})(StyledTagForm);
 
 const mapStateToProps = state => {
   return {};
