@@ -9,6 +9,7 @@ import styledConfig from "../../utils/styledConfing";
 import { setRating, deleteBook } from "../../actions/booksActions";
 import SquareButton from "../common/SquareButton";
 import AddTagForm from "./AddTagForm";
+import TagItem from "./TagItem";
 
 const BookItem = ({ className, book, setRating, deleteBook, loading }) => {
   const [rating, setStateRating] = useState(book.rating);
@@ -35,7 +36,11 @@ const BookItem = ({ className, book, setRating, deleteBook, loading }) => {
           <strong>{book.title}</strong>
         </p>
         <p>{book.author}</p>
-        <div className="tags-container">Tags container</div>
+        <div className="tag-container">
+          {book.tags.map(tag => (
+            <TagItem tag={tag} bookId={book._id} key={tag._id} />
+          ))}
+        </div>
         <SquareButton
           onClick={() => {
             setBlockTagForm(!blockTagForm);
@@ -54,6 +59,7 @@ const BookItem = ({ className, book, setRating, deleteBook, loading }) => {
             closeForm={setDisplayTagForm}
             isOpen={displayTagForm}
             isBlock={blockTagForm}
+            book_id={book._id}
           />
         </div>
       </div>

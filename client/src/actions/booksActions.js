@@ -62,3 +62,26 @@ export const addBook = formValues => dispatch => {
     .then(books => dispatch({ type: GET_BOOKS, payload: books.data }))
     .catch(err => dispatch({ type: BOOKS_ERROR, payload: err.response.data }));
 };
+
+export const addTag = (formValues, book_id) => dispatch => {
+  dispatch({ type: BOOKS_LOADING });
+  axios({
+    method: "post",
+    url: `/api/users/books/tag/${book_id}`,
+    mode: "no-cors",
+    data: { text: formValues.text }
+  })
+    .then(books => dispatch({ type: GET_BOOKS, payload: books.data }))
+    .catch(err => dispatch({ type: BOOKS_ERROR, payload: err.response.data }));
+};
+
+export const deleteTag = (book_id, tag_id) => dispatch => {
+  dispatch({ type: BOOKS_LOADING });
+  axios({
+    method: "delete",
+    url: `/api/users/books/tag/${book_id}/${tag_id}`,
+    mode: "no-cors"
+  })
+    .then(books => dispatch({ type: GET_BOOKS, payload: books.data }))
+    .catch(err => dispatch({ type: BOOKS_ERROR, payload: err.response.data }));
+};

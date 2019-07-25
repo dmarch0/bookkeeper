@@ -6,11 +6,18 @@ import { FaPlus, FaHamburger } from "react-icons/fa";
 
 import styledConfig from "../../utils/styledConfing";
 import SquareButton from "../common/SquareButton";
+import { addTag } from "../../actions/booksActions";
 
-const AddTagForm = ({ className, isOpen }) => {
+const AddTagForm = ({ className, isOpen, handleSubmit, book_id, addTag }) => {
   return (
-    <form className={className}>
-      <Field component="input" name="tag" type="text" />
+    <form
+      className={className}
+      onSubmit={handleSubmit(formValues => {
+        console.log("submit");
+        addTag(formValues, book_id);
+      })}
+    >
+      <Field component="input" name="text" type="text" />
       <SquareButton color="lightgreen" inline>
         <FaPlus />
       </SquareButton>
@@ -43,7 +50,11 @@ const StyledTagForm = styled(AddTagForm)`
 
 const formConnected = reduxForm({ form: "tag" })(StyledTagForm);
 
+const mapStateToProps = state => {
+  return {};
+};
+
 export default connect(
-  null,
-  {}
+  mapStateToProps,
+  { addTag }
 )(formConnected);

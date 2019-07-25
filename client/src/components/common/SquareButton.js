@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const SquareButton = styled.div`
+const SquareButton = styled.button`
   float: ${props => props.float};
   background-color: ${props => props.color};
   width: ${props => (props.width ? props.width : "30px")};
@@ -12,6 +12,11 @@ const SquareButton = styled.div`
   align-items: center;
   cursor: pointer;
   color: white;
+  border: none;
+
+  :focus {
+    outline: none;
+  }
 
   svg {
     height: 80%;
