@@ -37,3 +37,16 @@ export const logoutUser = () => {
     type: LOGOUT_USER
   };
 };
+
+export const registerUser = (formValues, history) => dispatch => {
+  axios({
+    method: "post",
+    mode: "no-cors",
+    data: formValues,
+    url: "/api/users/register"
+  })
+    .then(response => history.push("/login"))
+    .catch(err => {
+      dispatch({ type: FORM_ERROR, payload: err.response.data });
+    });
+};

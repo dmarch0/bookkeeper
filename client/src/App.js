@@ -8,6 +8,7 @@ import jwt_decode from "jwt-decode";
 import reducers from "./reducers";
 import MainWrapper from "./components/common/MainWrapper";
 import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import Dashboard from "./components/books/Dashboard";
 import setAuthToken from "./utils/setAuthToken";
@@ -58,6 +59,7 @@ const App = () => {
         <Router>
           <Switch>
             <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
           </Switch>
           <Switch>
             <ProtectedRoute exact path="/books" component={Dashboard} />
